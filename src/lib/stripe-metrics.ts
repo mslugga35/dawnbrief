@@ -21,8 +21,6 @@ export async function fetchStripeMetrics(
   const now = Math.floor(Date.now() / 1000);
   const todayStart = now - (now % 86400);
   const yesterdayStart = todayStart - 86400;
-  const thirtyDaysAgo = now - 30 * 86400;
-
   // Fetch in parallel
   const [subscriptions, recentCharges, recentCancellations] = await Promise.all(
     [
@@ -73,12 +71,16 @@ export async function fetchStripeMetrics(
 
   // Churned customers
   const churned = recentCancellations.data.map((sub) => {
-    const customer = sub.customer as Stripe.Customer;
+    const customer =
+      typeof sub.customer === "object" && sub.customer !== null
+        ? (sub.customer as Stripe.Customer)
+        : null;
+    const canceledAt = sub.canceled_at ?? sub.ended_at ?? now;
     const months = Math.round(
-      (sub.canceled_at! - sub.start_date) / (30 * 86400)
+      (canceledAt - sub.start_date) / (30 * 86400)
     );
     return {
-      email: customer.email || "unknown",
+      email: customer?.email || "unknown",
       plan: sub.items.data[0]?.price?.nickname || "unknown",
       months_active: months,
     };

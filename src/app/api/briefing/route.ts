@@ -52,8 +52,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ metrics, briefing });
   } catch (error) {
     console.error("Briefing error:", error);
-    const message =
-      error instanceof Error ? error.message : "Failed to generate briefing";
-    return NextResponse.json({ error: message }, { status: 500 });
+    const isStripeError =
+      error instanceof Error && error.message.includes("Stripe");
+    return NextResponse.json(
+      {
+        error: isStripeError
+          ? "Invalid Stripe key or Stripe API error. Check your key and try again."
+          : "Failed to generate briefing",
+      },
+      { status: 500 }
+    );
   }
 }

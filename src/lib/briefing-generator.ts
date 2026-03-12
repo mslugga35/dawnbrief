@@ -16,10 +16,11 @@ FORMAT:
 
 TONE: Like a smart co-founder giving you a 30-second update over coffee. Casual but precise.`;
 
+const anthropic = new Anthropic();
+
 export async function generateBriefing(
   metrics: StripeMetrics
 ): Promise<string> {
-  const anthropic = new Anthropic();
 
   const metricsText = `
 TODAY'S METRICS (${metrics.period.end}):
@@ -39,5 +40,5 @@ TODAY'S METRICS (${metrics.period.end}):
     messages: [{ role: "user", content: metricsText }],
   });
 
-  return response.content[0].type === "text" ? response.content[0].text : "";
+  return response.content[0]?.type === "text" ? response.content[0].text : "";
 }
