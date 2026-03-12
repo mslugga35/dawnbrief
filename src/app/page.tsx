@@ -39,6 +39,8 @@ export default function Home() {
   const [briefing, setBriefing] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showDemo, setShowDemo] = useState(false);
+  const [waitlistEmail, setWaitlistEmail] = useState("");
+  const [waitlistStatus, setWaitlistStatus] = useState<string | null>(null);
 
   const handleGenerate = async () => {
     if (!stripeKey.startsWith("sk_")) {
@@ -263,6 +265,42 @@ export default function Home() {
               <p className="text-sm text-zinc-500">{item.desc}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Waitlist */}
+      <div className="max-w-md mx-auto px-4 pb-16">
+        <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 text-center space-y-3">
+          <h3 className="font-semibold text-zinc-200">Join the waitlist</h3>
+          <p className="text-sm text-zinc-500">Be first to get automated daily briefings when we launch Stripe OAuth + scheduled emails.</p>
+          <div className="flex gap-2">
+            <input
+              type="email"
+              value={waitlistEmail}
+              onChange={(e) => setWaitlistEmail(e.target.value)}
+              placeholder="you@email.com"
+              className="flex-1 px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 text-sm"
+            />
+            <button
+              onClick={async () => {
+                if (!waitlistEmail.includes("@")) return;
+                const res = await fetch("/api/waitlist", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email: waitlistEmail }),
+                });
+                const data = await res.json();
+                setWaitlistStatus(data.message || data.error);
+                if (data.message) setWaitlistEmail("");
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 rounded-xl text-sm font-medium whitespace-nowrap"
+            >
+              Join Waitlist
+            </button>
+          </div>
+          {waitlistStatus && (
+            <p className="text-sm text-emerald-400">{waitlistStatus}</p>
+          )}
         </div>
       </div>
 
