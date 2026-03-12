@@ -30,7 +30,7 @@ TODAY'S METRICS (${metrics.period.end}):
 - New Customers Today: ${metrics.new_customers}
 - Revenue Collected Today: $${metrics.total_revenue_today}
 - Top Plan: ${metrics.top_plan}
-- Churned (last 24h): ${metrics.churned_customers.length === 0 ? "None" : metrics.churned_customers.map((c) => `${c.email} (${c.plan}, ${c.months_active}mo)`).join(", ")}
+- Churned (last 24h): ${metrics.churned_customers.length === 0 ? "None" : metrics.churned_customers.map((c) => `${c.email.replace(/^(.{2}).*(@.*)$/, "$1***$2")} (${c.plan}, ${c.months_active}mo)`).join(", ")}
 `;
 
   const response = await anthropic.messages.create({

@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { stripe_key } = await req.json();
-    const apiKey = stripe_key || process.env.STRIPE_SECRET_KEY;
+    const apiKey = stripe_key;
 
     if (!apiKey || typeof apiKey !== "string") {
       return NextResponse.json(
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     const metrics = await fetchStripeMetrics(apiKey);
     const briefing = await generateBriefing(metrics);
 
-    return NextResponse.json({ metrics, briefing });
+    return NextResponse.json({ briefing });
   } catch (error) {
     console.error("Briefing error:", error);
     const isStripeError =
