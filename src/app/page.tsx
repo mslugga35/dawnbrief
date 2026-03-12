@@ -66,24 +66,25 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
       {/* Hero */}
-      <div className="max-w-3xl mx-auto px-4 pt-16 pb-8">
-        <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-sm text-zinc-400">
-            <Mail className="w-4 h-4 text-blue-400" />
+      <div className="relative max-w-3xl mx-auto px-4 pt-20 pb-10">
+        <div className="dawn-gradient" />
+        <div className="text-center space-y-5 relative">
+          <div className="animate-fade-up inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-sm text-zinc-400 backdrop-blur-sm">
+            <Mail className="w-4 h-4 text-emerald-400" />
             Your business, summarized daily
           </div>
-          <h1 className="text-5xl font-bold tracking-tight">
+          <h1 className="animate-fade-up-delay-1 text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.05]">
             Stop Checking
             <br />
-            <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
               Five Dashboards
             </span>
           </h1>
-          <p className="text-lg text-zinc-400 max-w-xl mx-auto">
+          <p className="animate-fade-up-delay-2 text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed">
             Connect Stripe and get a daily AI briefing in your inbox. MRR,
             churn, signups, anomalies — in plain English, every morning.
           </p>
-          <p className="text-sm text-zinc-600">
+          <p className="animate-fade-up-delay-2 text-sm text-zinc-600">
             $19/mo after free trial. 99% gross margin. Cancel anytime.
           </p>
         </div>
