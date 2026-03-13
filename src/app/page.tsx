@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Mail,
   TrendingUp,
@@ -121,9 +122,26 @@ export default function Home() {
           </div>
           DawnBrief
         </div>
-        <div className="status-badge">
-          <span className="dot" />
-          Early Access
+        <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+          <Link
+            href="/blog"
+            style={{
+              fontSize: "0.8125rem",
+              fontWeight: 500,
+              color: "var(--text-muted)",
+              textDecoration: "none",
+              letterSpacing: "0.02em",
+              transition: "color 0.15s",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-secondary)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-muted)"; }}
+          >
+            Blog
+          </Link>
+          <div className="status-badge">
+            <span className="dot" />
+            Early Access
+          </div>
         </div>
       </nav>
 
@@ -532,6 +550,8 @@ export default function Home() {
             AI daily business briefings for SaaS founders
           </p>
           <div className="footer-links">
+            <Link href="/blog" className="footer-link">Blog</Link>
+            <span className="footer-sep" />
             <a href="mailto:hi@getdawnbrief.com" className="footer-link">Contact</a>
             <span className="footer-sep" />
             <a href="#" className="footer-link">Privacy</a>
