@@ -423,6 +423,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 1.875rem;
   height: 1.875rem;
   background: linear-gradient(135deg, var(--accent-em), var(--accent-teal));
@@ -430,7 +431,6 @@ body {
   font-size: 0.7rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 0.875rem;
   box-shadow: 0 4px 12px rgba(16,185,129,0.25);
 }
 
@@ -686,6 +686,10 @@ body {
 
 .animate-slide-down {
   animation: slide-down 0.35s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* ─── Scrollbar ─── */

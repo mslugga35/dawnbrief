@@ -546,12 +546,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Spin keyframe (inline since Tailwind doesn't always have it available without @layer) */}
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }
