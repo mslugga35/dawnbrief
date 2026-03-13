@@ -129,7 +129,7 @@ export default function Home() {
 
       {/* ── Hero ── */}
       <main id="main-content">
-      <section style={{ position: "relative", maxWidth: "760px", margin: "0 auto", padding: "3.5rem 1.5rem 2rem" }}>
+      <section style={{ position: "relative", maxWidth: "760px", margin: "0 auto", padding: "3.5rem 1.5rem 2rem", overflow: "hidden" }}>
         <div className="dawn-gradient" aria-hidden="true" />
 
         <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
@@ -203,7 +203,7 @@ export default function Home() {
 
         <div className="card-base card-glow" style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.125rem" }}>
           {/* Stats row */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "0.5rem" }}>
+          <div className="stats-grid">
             {[
               { icon: DollarSign, label: "MRR",    value: `$${DEMO_METRICS.mrr}`,     color: "var(--accent-em)" },
               { icon: TrendingUp, label: "Change", value: `+$${DEMO_METRICS.change}`, color: "var(--accent-em)" },
@@ -440,7 +440,7 @@ export default function Home() {
                 </div>
               ) : (
                 <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <div className="waitlist-form-row">
                     <label htmlFor="waitlist-email" className="sr-only">Email address</label>
                     <input
                       id="waitlist-email"

@@ -202,6 +202,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
+  min-height: 44px;
   background: linear-gradient(135deg, var(--accent-em), var(--accent-teal));
   color: #fff;
   font-family: var(--font-body);
@@ -257,6 +258,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
+  min-height: 44px;
   background: var(--bg-raised);
   color: var(--text-secondary);
   font-size: 0.875rem;
@@ -277,6 +279,7 @@ body {
 .input-base {
   width: 100%;
   padding: 0.75rem 1rem;
+  min-height: 44px;
   background: var(--bg-raised);
   border: 1px solid var(--border-mid);
   border-radius: 0.625rem;
@@ -429,6 +432,36 @@ body {
   color: #fff;
   margin-bottom: 0.875rem;
   box-shadow: 0 4px 12px rgba(16,185,129,0.25);
+}
+
+/* ─── Waitlist email form row ─── */
+.waitlist-form-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .waitlist-form-row {
+    flex-direction: column;
+  }
+
+  .waitlist-form-row .btn-primary {
+    width: 100%;
+    white-space: normal;
+  }
+}
+
+/* ─── Stats grid — 2 cols on mobile, 3 on wider ─── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+@media (min-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* ─── Waitlist section ─── */
