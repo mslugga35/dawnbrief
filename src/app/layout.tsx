@@ -64,10 +64,6 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: "https://getdawnbrief.com" },
   robots: { index: true, follow: true },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
   manifest: "/manifest.webmanifest",
 };
 
