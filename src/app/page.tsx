@@ -114,9 +114,9 @@ export default function Home() {
     <div className="min-h-screen" style={{ background: "var(--bg-void)", color: "var(--text-primary)" }}>
 
       {/* ── Nav ── */}
-      <nav className="nav-bar">
-        <div className="nav-logo">
-          <div className="nav-logo-mark">
+      <nav className="nav-bar" aria-label="Main navigation">
+        <div className="nav-logo" aria-label="DawnBrief home">
+          <div className="nav-logo-mark" aria-hidden="true">
             <Sunrise style={{ width: 14, height: 14, color: "#fff" }} />
           </div>
           DawnBrief
@@ -128,8 +128,9 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ── */}
+      <main id="main-content">
       <section style={{ position: "relative", maxWidth: "760px", margin: "0 auto", padding: "3.5rem 1.5rem 2rem" }}>
-        <div className="dawn-gradient" />
+        <div className="dawn-gradient" aria-hidden="true" />
 
         <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           {/* Headline */}
@@ -150,16 +151,18 @@ export default function Home() {
               className="btn-primary"
               onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
               style={{ padding: "0.8125rem 1.625rem", fontSize: "0.9rem" }}
+              aria-label="Join the DawnBrief waitlist"
             >
               <span>Join the Waitlist</span>
-              <ArrowRight style={{ width: 15, height: 15 }} className="relative z-10" />
+              <ArrowRight style={{ width: 15, height: 15 }} className="relative z-10" aria-hidden="true" />
             </button>
             <button
               className="btn-ghost"
               onClick={() => document.getElementById("try-it")?.scrollIntoView({ behavior: "smooth" })}
+              aria-label="Try DawnBrief with your Stripe data"
             >
               Try with your Stripe data
-              <ChevronDown style={{ width: 14, height: 14 }} />
+              <ChevronDown style={{ width: 14, height: 14 }} aria-hidden="true" />
             </button>
           </div>
 
@@ -170,7 +173,7 @@ export default function Home() {
       </section>
 
       {/* ── Ticker ── */}
-      <div className="ticker-track" style={{ marginBottom: "0" }}>
+      <div className="ticker-track" style={{ marginBottom: "0" }} aria-hidden="true">
         <div className="ticker-inner">
           {tickerItems.map((item, i) => (
             <div key={i} className="ticker-item">
@@ -222,14 +225,16 @@ export default function Home() {
             onClick={() => setShowDemo(!showDemo)}
             className="btn-primary"
             style={{ width: "100%", padding: "0.75rem" }}
+            aria-expanded={showDemo}
+            aria-controls="demo-briefing"
           >
-            <Mail style={{ width: 16, height: 16 }} className="relative z-10" />
+            <Mail style={{ width: 16, height: 16 }} className="relative z-10" aria-hidden="true" />
             <span>{showDemo ? "Hide" : "Read"} Today&apos;s Briefing</span>
           </button>
 
           {/* Demo email */}
           {showDemo && (
-            <div className="email-card animate-slide-down">
+            <div id="demo-briefing" className="email-card animate-slide-down" role="region" aria-label="Demo briefing email">
               <div className="email-header">
                 <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, var(--accent-em), var(--accent-cyan))", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <Zap style={{ width: 14, height: 14, color: "#fff" }} />
@@ -267,13 +272,17 @@ export default function Home() {
         </div>
 
         <div className="card-base" style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <label htmlFor="stripe-key" className="sr-only">Stripe secret key</label>
           <input
+            id="stripe-key"
             type="password"
             value={stripeKey}
             onChange={(e) => setStripeKey(e.target.value)}
             placeholder="sk_live_... or sk_test_..."
             className="input-base"
             onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
+            aria-label="Stripe secret key"
+            autoComplete="off"
           />
 
           <button
@@ -281,6 +290,8 @@ export default function Home() {
             disabled={loading || !stripeKey}
             className="btn-primary"
             style={{ width: "100%", padding: "0.8125rem" }}
+            aria-label={loading ? "Generating your briefing" : "Generate my Stripe briefing"}
+            aria-busy={loading}
           >
             {loading ? (
               <>
@@ -392,7 +403,7 @@ export default function Home() {
 
       {/* ── Waitlist ── */}
       <section id="waitlist" className="waitlist-section" style={{ padding: "4rem 1.5rem 4rem" }}>
-        <div className="waitlist-beacon" />
+        <div className="waitlist-beacon" aria-hidden="true" />
 
         <div style={{ maxWidth: "480px", margin: "0 auto", position: "relative" }}>
           <div className="waitlist-card">
@@ -430,7 +441,9 @@ export default function Home() {
               ) : (
                 <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
                   <div style={{ display: "flex", gap: "0.5rem" }}>
+                    <label htmlFor="waitlist-email" className="sr-only">Email address</label>
                     <input
+                      id="waitlist-email"
                       type="email"
                       value={waitlistEmail}
                       onChange={(e) => setWaitlistEmail(e.target.value)}
@@ -438,12 +451,16 @@ export default function Home() {
                       placeholder="your@email.com"
                       className="input-base input-email"
                       style={{ flex: 1 }}
+                      aria-label="Email address for waitlist"
+                      autoComplete="email"
                     />
                     <button
                       onClick={handleWaitlist}
                       disabled={waitlistLoading || !waitlistEmail.includes("@")}
                       className="btn-primary"
                       style={{ whiteSpace: "nowrap", padding: "0.75rem 1.125rem" }}
+                      aria-label={waitlistLoading ? "Joining waitlist" : "Join the DawnBrief waitlist"}
+                      aria-busy={waitlistLoading}
                     >
                       {waitlistLoading ? (
                         <span style={{
@@ -499,6 +516,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* ── Footer ── */}
       <footer style={{ maxWidth: "680px", margin: "0 auto", padding: "0 1.5rem 3rem" }}>

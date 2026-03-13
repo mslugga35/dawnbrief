@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: "https://getdawnbrief.com",
-      lastModified: "2026-03-12",
+      lastModified: new Date().toISOString().split("T")[0],
       changeFrequency: "weekly",
       priority: 1,
     },

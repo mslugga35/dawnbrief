@@ -3,6 +3,34 @@ import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "DawnBrief",
+  url: "https://getdawnbrief.com",
+  description:
+    "Connect Stripe and get a plain-English AI daily briefing. MRR, churn, signups, anomalies — in one email every morning.",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  offers: {
+    "@type": "Offer",
+    price: "19",
+    priceCurrency: "USD",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      price: "19",
+      priceCurrency: "USD",
+      unitText: "MONTH",
+    },
+    description: "After free trial. Cancel anytime.",
+  },
+  author: {
+    "@type": "Organization",
+    name: "DawnBrief",
+    url: "https://getdawnbrief.com",
+  },
+};
+
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
@@ -34,7 +62,13 @@ export const metadata: Metadata = {
     description:
       "Stop checking five dashboards. One AI email every morning with everything that matters.",
   },
+  alternates: { canonical: "https://getdawnbrief.com" },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/manifest.webmanifest",
 };
 
 export default function RootLayout({
@@ -44,9 +78,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${jakarta.variable} ${plexMono.variable} antialiased`}
       >
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         {children}
         <Analytics />
       </body>
