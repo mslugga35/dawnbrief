@@ -28,8 +28,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { stripe_key } = await req.json();
-    const apiKey = stripe_key;
+    const { stripe_key: apiKey } = await req.json();
 
     if (!apiKey || typeof apiKey !== "string") {
       return NextResponse.json(

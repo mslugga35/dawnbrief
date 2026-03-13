@@ -9,7 +9,7 @@ FORMAT:
 - Start with a one-line summary (the "headline")
 - Use bullet points for each key metric with context
 - Flag anything unusual with a warning emoji
-- If there's churn, mention it specifically with the customer email and how long they were subscribed
+- If there's churn, mention it with the masked email (as provided) and how long they were subscribed
 - End with one actionable suggestion based on the data
 - Keep it under 200 words total
 - Use plain text, no markdown headers — this goes in an email

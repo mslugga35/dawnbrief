@@ -128,22 +128,10 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ── */}
-      <section style={{ position: "relative", maxWidth: "760px", margin: "0 auto", padding: "5rem 1.5rem 3rem" }}>
+      <section style={{ position: "relative", maxWidth: "760px", margin: "0 auto", padding: "3.5rem 1.5rem 2rem" }}>
         <div className="dawn-gradient" />
-        <div className="hero-beam" />
 
         <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-          {/* Eyebrow tag */}
-          <div className="animate-fade-up" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <div className="status-badge">
-              <span className="dot" />
-              <span style={{ fontFamily: "var(--font-mono)" }}>v0.1 · beta</span>
-            </div>
-            <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 600 }}>
-              For SaaS founders
-            </span>
-          </div>
-
           {/* Headline */}
           <h1 className="display-hero animate-fade-up-delay-1">
             Stop Checking<br />
@@ -197,7 +185,7 @@ export default function Home() {
       </div>
 
       {/* ── Demo Section ── */}
-      <section style={{ maxWidth: "680px", margin: "0 auto", padding: "4rem 1.5rem 2rem" }}>
+      <section style={{ maxWidth: "680px", margin: "0 auto", padding: "3rem 1.5rem 2rem" }}>
         <div style={{ marginBottom: "1.25rem" }}>
           <div className="section-label">
             <span className="label-tag">01 · Preview</span>
@@ -212,7 +200,7 @@ export default function Home() {
 
         <div className="card-base card-glow" style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.125rem" }}>
           {/* Stats row */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: "0.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "0.5rem" }}>
             {[
               { icon: DollarSign, label: "MRR",    value: `$${DEMO_METRICS.mrr}`,     color: "var(--accent-em)" },
               { icon: TrendingUp, label: "Change", value: `+$${DEMO_METRICS.change}`, color: "var(--accent-em)" },
@@ -403,23 +391,21 @@ export default function Home() {
       </section>
 
       {/* ── Waitlist ── */}
-      <section id="waitlist" className="waitlist-section" style={{ padding: "5rem 1.5rem 6rem" }}>
+      <section id="waitlist" className="waitlist-section" style={{ padding: "4rem 1.5rem 4rem" }}>
         <div className="waitlist-beacon" />
 
         <div style={{ maxWidth: "480px", margin: "0 auto", position: "relative" }}>
           <div className="waitlist-card">
-            {/* Icon with pulse */}
+            {/* Icon */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
-              <div className="pulse-icon">
-                <div style={{
-                  width: 52, height: 52, borderRadius: "50%",
-                  background: "linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.1))",
-                  border: "1px solid rgba(16,185,129,0.3)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  boxShadow: "0 0 24px rgba(16,185,129,0.12)",
-                }}>
-                  <Sunrise style={{ width: 24, height: 24, color: "var(--accent-em)" }} />
-                </div>
+              <div style={{
+                width: 52, height: 52, borderRadius: "50%",
+                background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(6,182,212,0.08))",
+                border: "1px solid rgba(16,185,129,0.25)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                boxShadow: "0 0 16px rgba(16,185,129,0.08)",
+              }}>
+                <Sunrise style={{ width: 24, height: 24, color: "var(--accent-em)" }} />
               </div>
 
               <div style={{ textAlign: "center" }}>
