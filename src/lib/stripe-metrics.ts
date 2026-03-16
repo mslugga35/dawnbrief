@@ -42,19 +42,24 @@ export async function fetchStripeMetrics(
     ]
   );
 
+  // Helper: calculate MRR for a list of subscriptions
+  const calculateSubMRR = (subs: Stripe.Subscription[]) => {
+    return subs.reduce((sum, sub) => {
+      const item = sub.items.data[0];
+      if (!item?.price?.unit_amount || !item?.price?.recurring) return sum;
+      const amount = item.price.unit_amount / 100;
+      const interval = item.price.recurring.interval;
+      if (interval === "month") return sum + amount;
+      if (interval === "year") return sum + amount / 12;
+      return sum + amount;
+    }, 0);
+  };
+
   // Calculate MRR from active subscriptions
   const activeSubs = subscriptions.data.filter(
     (s) => s.status === "active" || s.status === "trialing"
   );
-  const mrr = activeSubs.reduce((sum, sub) => {
-    const item = sub.items.data[0];
-    if (!item?.price?.unit_amount || !item?.price?.recurring) return sum;
-    const amount = item.price.unit_amount / 100;
-    const interval = item.price.recurring.interval;
-    if (interval === "month") return sum + amount;
-    if (interval === "year") return sum + amount / 12;
-    return sum + amount;
-  }, 0);
+  const mrr = calculateSubMRR(activeSubs);
 
   // Count trials
   const trialCount = activeSubs.filter((s) => s.status === "trialing").length;
@@ -63,6 +68,13 @@ export async function fetchStripeMetrics(
   const newCustomers = subscriptions.data.filter(
     (s) => s.created >= todayStart
   ).length;
+
+  // Calculate MRR change: new subs in last 24h minus canceled subs in last 24h
+  const newSubs = subscriptions.data.filter((s) => s.created >= yesterdayStart);
+  const newSubsMRR = calculateSubMRR(newSubs);
+  const canceledSubsMRR = calculateSubMRR(recentCancellations.data);
+  const mrrChange = newSubsMRR - canceledSubsMRR;
+  const mrrChangePct = mrr > 0 ? Math.round((mrrChange / (mrr - mrrChange)) * 100) : 0;
 
   // Revenue today
   const totalRevenueToday = recentCharges.data
@@ -98,8 +110,8 @@ export async function fetchStripeMetrics(
 
   return {
     mrr: Math.round(mrr * 100) / 100,
-    mrr_change: 0, // TODO: compare with stored yesterday's MRR
-    mrr_change_pct: 0,
+    mrr_change: Math.round(mrrChange * 100) / 100,
+    mrr_change_pct: mrrChangePct,
     new_customers: newCustomers,
     churned_customers: churned,
     total_revenue_today: Math.round(totalRevenueToday * 100) / 100,
