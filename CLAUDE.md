@@ -1,5 +1,5 @@
 # DawnBrief
-> Last verified: 2026-03-13
+> Last verified: 2026-03-23 (overnight update: confirmed MRR change fix, documented actual implementation)
 
 ## Project
 - **Repo:** `github.com/mslugga35/dawnbrief` (branch: `master`)
@@ -30,23 +30,33 @@
 - `NEXT_PUBLIC_APP_URL` — App URL
 - `WAITLIST_NOTIFY_EMAIL` — Notification recipient
 
-## Known Issues
-- **MRR change hardcoded to $0** — `mrr_change` and `mrr_change_pct` in stripe-metrics.ts are always 0. Needs yesterday's MRR stored for comparison.
-- **No scheduled delivery** — Briefings are on-demand only, no daily email pipeline
-- **No auth** — Users submit Stripe key each time, no accounts
-- **No database** — Stateless, nothing persisted
-- **Stripe key not stored** — Used once per request, discarded (secure but limits features)
+## Implemented ✅
+- **MRR calculation** — Includes day-over-day change (new vs canceled subscriptions), % change
+- **Rate limiting** — 3 req/min per IP on both briefing and waitlist APIs
+- **Stripe key validation** — Checks sk_live_* or sk_test_* prefix
+- **Claude integration** — Haiku model generates ~150-200 word briefings
+- **Waitlist** — Email capture + Resend notification to WAITLIST_NOTIFY_EMAIL
+- **Email privacy** — Customer churn list masks emails (first 2 chars + domain only)
+
+## Not Implemented (Backlog)
+- **Scheduled delivery** — Briefings are on-demand only, no daily email pipeline
+- **User auth** — No accounts; users paste Stripe key each time
+- **Database** — Stateless, nothing persisted
+- **Stripe key storage** — Keys used once per request, discarded (secure but limits features)
+- **MRR history** — No daily snapshots for historical comparison
 
 ## Deploying
 `cd dawnbrief && npx vercel --prod --scope mslugga35s-projects`
 
+## In Progress
+- **Toolkit section** — Branch `overnight/dawnbrief/2026-03-16` has 85 lines uncommitted. Adds "Build your own briefing system" section with Gumroad product link. Needs review/completion before merging.
+
 ## Next Priorities
-1. **Daily email pipeline** — Cron + stored keys + Resend delivery (core product promise)
-2. **User auth** — Stripe OAuth or magic link signup
-3. **Database** — Supabase for user accounts + encrypted Stripe keys + MRR history
-4. **MRR comparison** — Store daily snapshots for day-over-day change
-5. **Pricing page** — $19/mo Stripe checkout
-6. **Distribution** — Reddit (r/SaaS, r/startups, r/EntrepreneurRideAlong), X, Indie Hackers
+1. **Complete & merge toolkit feature** — Finish the in-progress section on overnight/dawnbrief/2026-03-16 branch
+2. **Daily email pipeline** — Cron job + Vercel deployments + stored keys + Resend delivery (core product promise)
+3. **User auth + database** — Supabase for accounts + encrypted Stripe keys + MRR history
+4. **Pricing page** — $19/mo Stripe checkout
+5. **Distribution** — Reddit (r/SaaS, r/startups, r/EntrepreneurRideAlong), X, Indie Hackers
 
 ## Gotchas
 - All UI is in page.tsx (no separate components)
